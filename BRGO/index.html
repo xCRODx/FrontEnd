@@ -1,0 +1,223 @@
+<html>
+  <head>
+    <!-- versão de desenvolvimento, inclui avisos úteis no console  -->
+    
+     <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no user-scalable=no">
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+   
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/gonzocons.css">
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    
+    
+    <script src="card.js"></script>
+    <script src="app.js"></script>
+  
+    
+    <script>
+   // $(document).ready(function(){
+     
+   //  alert(miniMapa.mostrar());
+      
+       
+ // });
+    
+    </script>
+    
+    
+    
+  </head>
+    
+  <body>
+    
+     
+<div class="text-center font-open-sans" id="APP">
+
+
+    
+  <div id="SIDE">
+    
+    
+  </div><!--App Menul: Menu lateral arrastavel -->
+  
+  
+  
+  <div id="PAGE">
+    
+    <div id="header" class="tema-d font-noto">
+      
+  
+      <table border="1">
+         <tr>
+       <h4 id="tituloHeader"><a id="logoHeader" class="">Br</a>Go</h4>
+     
+       
+ <div class="input-group mb-3 searchBox font-noto">
+  <input type="text" class="form-control searchBoxInput" placeholder="Descubra.." aria-label="Recipient's username" aria-describedby="button-addon2">
+  <div class="input-group-append ">
+    <button class="btn btn-outline-secondary fa fa-search searchBoxBtn btnHeader" type="button" id="button-addon2"></button>
+  </div>
+</div>
+
+      <div id="cartHeader" class=" btn app-btn shadow-5 notify-btn tema-d">
+        
+       
+        
+        <notify class="ifs icon-cart"></notify>
+         
+         <i class="notify-number font-noto">4</i>
+         
+        </div>
+ <!--
+          <input type="text" name="searchBox" placeholder="Aquilo que você procura" class="searchBox" id="searchBox">
+          </td>
+          
+          <td border="0" >
+            <button class="btn searchBoxBtn position-centered btnHeader"><i aria-hidden="true" class="fa fa-search  position-left"></i></button>
+            -->
+                  
+    
+    </tr>
+    
+    <tr>
+    
+    </tr>
+             
+     </table>
+  
+  </div><!--App Menul: head and Nav flutuante-->
+   
+   <div id="menuFiltro" class="tema-e shadow-bot-1" style="width:100%">
+     
+     <h9 for="customRange1" class="form-label font-noto">Distância: </h9>
+<input type="range" class="form-range" id="rangeDist" value="1" min="1" step="1" max="10">
+     
+<string id="txtDist">1km</string>
+
+<div class="shadow-5 btn app-btn tema-d ifs icon-down" id="btnFiltro" style="text-align: right" >
+  
+</div>
+   </div>
+     
+     <div class="font-noto" id="filtroPesquisa" style="opacity: 0%;">
+       <h5 id="filtroPesquisaHeader"><b>Filtrar Pesquisa</b></h5>
+       <p class="texto">Preço</p>
+       <label>Mínimo: R$ <input type="number" placeholder="30" class="inputFiltroPreco" value = "30" id="filtroPrecoMinimo"></label>
+       
+       <label>Máximo: R$ <input type="number" placeholder="300" class="inputFiltroPreco" value="300" id="filtroPrecoMaximo"></label><br><hr>
+       <button class="filtro-btn btn app-btn tema-d">Aplicar</button>
+       
+ 
+  </div>
+  
+  
+    <!--  <div id="notification" class="shadow-bot-1 tema-f">
+  
+      1 mensagem recebida 
+ 
+  </div> -->
+  
+
+    
+    <div class="contentBlank" style="width:100%;align-items:center;">
+   
+   
+       <div class="row card-list">
+       
+    <div id="cardListColuna1" class="colEsquerda col">   
+    
+</div> <!--colunaEsquerda-->
+
+        
+<div id="cardListColuna2" class="col">
+      
+</div><!--colunaDireita-->
+         
+         
+  </div><!--Row card-list->
+  
+    
+  </div><!--App Menul: page// content -->
+  
+  
+  <div id="footer" class="fixed-bottom">
+    
+    <div id="googleMap"  style="width:250px;height:350px;margin-left:30px;"></div>
+  
+    
+         
+          <div class="btn btnFooter btn-footer-location tema-d" onclick="miniMapa.mostrar()"><i class="ifs icon-map"></i>
+         <div class="small">Mapa</div>  
+         </div>
+         
+            
+              
+            
+            
+            
+         </div> 
+      </label> 
+    
+  </div><!--App Menul: footer menu, flutuante-->
+  
+  
+  
+    <!--
+  
+  <div id="splash" class="tema-c">
+    
+  </div> --> <!--splash -->
+      <br>
+     
+  <p>Recarregue a página para novos anúncios</p>
+    <br>
+    <br>
+</div>
+  
+  <script>
+
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng(51.508742,-0.120850),
+  zoom:5,
+};
+ // iniciarMapa =()=>{
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+   $("#googleMap").hide();
+//  }
+}
+  
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrWAlxoq7UOz5tk8J7craAsmRBRB6Lj_k&callback=myMap"></script>
+  
+  
+</div>
+<!--Modal: APP-->
+    
+    
+  </body>
+  
+  
+  
+</html>
