@@ -1,0 +1,76 @@
+<html>
+  <style>
+    pre .json-viewer { white-space: nowrap; overflow: scroll; }
+    .json-viewer { list-style-type:none; font-size: 13px; font-family: Menlo,Monaco,Consolas,"Courier New",monospace; color: white; background-color: #1c2833; border: 2px solid gray; border-radius: 5px; padding: 1em; }
+    .json-dict li, .json-array li { border-left: 1px solid #22303d; }
+    .json-dict, .json-array { padding: 0 0 0 2em; margin: 0 0 0 1px; list-style: none; }
+    .json-key { color: #60c9f5; }
+    .json-data-string { color: #0ad161; }
+    .json-data-number { color: #ff8c00; }
+    .json-data-boolean { color: #ff3434; }
+    .json-data-null { color: #808080; }
+    .json-data-symbol { color: #000; }
+    .json-toggle { cursor: pointer; text-decoration: none; }
+    .json-toggle-icon { cursor: pointer; text-decoration: none; color: #aaa; position: relative; }
+    .json-toggle-icon.collapsed::before{ transform: rotate(-90deg); -ms-transform: rotate(-90deg); -webkit-transform: rotate(-90deg); display:inline-block; }
+    .json-toggle-icon::before{ content: "\25BC"; display:inline-block; position: absolute; left: -1em; bottom: auto; top: auto; right: auto; }
+    .json-toggle-placeholder{ color: #a4a4a4; margin: 0 10px 0 10px; cursor: pointer; text-decoration: none; }
+  </style>
+  <head>
+    <script>
+      function jsonViewer(json, width = '400px', heigth = '400px', aditionalClass = '', resizible = true) {
+        function getJsonLine(string, close = 0, addClass = '') {
+            if(!string || string === '' || typeof string !== 'string') return '';
+            addClass = addClass ? ` class="${addClass}"` : '';
+            return close > 0 ? (close === 1 ? string + '</li>' : `<li${addClass}>` + string + '</li>') : `<li${addClass}>` + string;
+        }
+
+        function getJsonValues(value) {
+            switch (typeof value) {
+                case 'string': return '<span class="json-data-string">"' + htmlEntities(value) + '"</span>';
+                case 'number': return '<span class="json-data-number">' + value + '</span>';
+                case 'boolean': return '<span class="json-data-boolean">' + value + '</span>';
+                case 'object': if (value === null) { return '<span class="json-data-null">null</span>';} break;
+                default: return '<span class="json-data-symbol">' + value + '</span>';
+            }
+        }
+
+        function getJsonKey(key) {
+            return (typeof key === 'string' && key !== '' && !isInteger(key)) ? '<span class="json-key">"' + htmlEntities(key) + '"</span>: ' : '';
+        }
+
+        function mapJson(json, key = '', count = 0, last = true) {
+            let index = 1;
+            let str = '', str_begin = '', placeholder = '';
+            let virgula = (index >= count ? '' : ',');
+            if (Array.isArray(json)) str_begin += key + '[' + (count > 0 ? '<ol class="json-array">' : '');
+            else if (typeof json === 'object' && typeof json !== null) str_begin += key + '{' + (count > 0 ? '<ul class="json-dict">' : '');
+            if(str_begin) str += str_begin;
+            placeholder = (count > 0) ? `<span class="json-toggle-placeholder" style="display: none;" onclick="jsonShowHide(this)">${count} ${(count > 1 ? __('itens') : __('item'))}</span>` : '';
+            if (Array.isArray(json) || (typeof json === 'object' && json !== null)) {
+                $.each(json, (k, v) => {
+                    let nl = '';
+                    if (Array.isArray(v) || (typeof v === 'object' && v !== null)) {
+                        k = (Object.entries(v).length > 0) ? `<span onclick="jsonShowHide(this)" class="json-toggle json-toggle-icon">${getJsonKey(k)}</span>` : getJsonKey(k);
+                        nl += mapJson(v, k, Object.entries(v).length, (index >= count));
+                    } else nl += getJsonKey(k) + getJsonValues(v) + virgula;
+                    str += (nl ? getJsonLine(nl) : '');
+                    index += 1;
+                    virgula = (index >= count ? '' : ',');
+                });
+            } else str += getJsonValues(json) + virgula;
+            if (Array.isArray(json))
+                str += getJsonLine((count > 0 ? '</ol>' : '')+`${placeholder}]` + (last ? '' : ','), 1);
+            else if (typeof json === 'object' && json !== null)
+                str += getJsonLine((count > 0 ? '</ul>' : '')+`${placeholder}}` + (last ? '' : ','), 1);
+            return str;
+        }
+        return `<pre class="json-viewer ${aditionalClass}" style="width:${width};height:${heigth};${resizible?'resize: both;':''}">${mapJson(json,'',Object.entries(json).length,!(Object.entries(json).length<=1))}</pre>`;
+      }
+      fetch('https://jsonplaceholder.typicode.com/todos').then(response => response.json()).then(data => { document.getElementById('my-json').innerHTML = jsonViewer(data); }).catch(error => console.error(error));
+    </script>
+  </head>
+  <body>
+    <div id="my-json">This is my JSON</div>
+  </body>
+</html>
