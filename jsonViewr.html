@@ -17,8 +17,12 @@
     .json-toggle-placeholder{ color: #a4a4a4; margin: 0 10px 0 10px; cursor: pointer; text-decoration: none; }
   </style>
   <head>
-    <script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script>     
       function jsonViewer(json, width = '400px', heigth = '400px', aditionalClass = '', resizible = true) {
+        function isInteger(val) { Number.isInteger(val); }
+        function htmlEntities(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+        
         function getJsonLine(string, close = 0, addClass = '') {
             if(!string || string === '' || typeof string !== 'string') return '';
             addClass = addClass ? ` class="${addClass}"` : '';
