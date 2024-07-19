@@ -18,8 +18,17 @@
   </style>
   <head>
     <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-    <script>     
-      function jsonViewer(json, width = '400px', heigth = '400px', aditionalClass = '', resizible = true) {
+    <script> 
+      function jsonShowHide(el) {
+      	el = $(el);
+        if (el.siblings('.json-array, .json-dict').css('display') === 'none')
+            el.siblings('ul, ol').show("fast").siblings('.json-toggle-icon').removeClass('collapsed').siblings('.json-toggle-placeholder').hide();
+        else
+            el.siblings('ul, ol').hide("fast").siblings('.json-toggle-icon').addClass('collapsed').siblings('.json-toggle-placeholder').show();
+      }
+
+      function jsonViewer(json, width = 'auto', heigth = 'auto', aditionalClass = '', resizible = true) {
+
         function isInteger(val) { Number.isInteger(val); }
         function htmlEntities(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
         
