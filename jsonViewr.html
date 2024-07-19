@@ -46,7 +46,7 @@
             if (Array.isArray(json)) str_begin += key + '[' + (count > 0 ? '<ol class="json-array">' : '');
             else if (typeof json === 'object' && typeof json !== null) str_begin += key + '{' + (count > 0 ? '<ul class="json-dict">' : '');
             if(str_begin) str += str_begin;
-            placeholder = (count > 0) ? `<span class="json-toggle-placeholder" style="display: none;" onclick="jsonShowHide(this)">${count} ${(count > 1 ? __('itens') : __('item'))}</span>` : '';
+            placeholder = (count > 0) ? `<span class="json-toggle-placeholder" style="display: none;" onclick="jsonShowHide(this)">${count} ${(count > 1 ? 'itens' : 'item')}</span>` : '';
             if (Array.isArray(json) || (typeof json === 'object' && json !== null)) {
                 $.each(json, (k, v) => {
                     let nl = '';
